@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aryan Bakshi Portfolio</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-cyan: #0ff;
+            --neon-green: #0f0;
+            --neon-purple: #b44dff;
+            --neon-pink: #ff2d95;
+            --dark-bg: #000a0f;
+            --section-bg: rgba(0, 20, 35, 0.95);
+            --card-bg: rgba(0, 30, 45, 0.85);
+            --gradient-1: linear-gradient(45deg, #0ff, #0f0);
+            --gradient-2: linear-gradient(135deg, #b44dff, #0ff);
+            --gradient-3: linear-gradient(45deg, #ff2d95, #ff6b35);
+            --glow-cyan: 0 0 15px rgba(0, 255, 255, 0.5);
+            --glow-purple: 0 0 20px rgba(180, 77, 255, 0.5);
+            --glow-pink: 0 0 15px rgba(255, 45, 149, 0.4);
+            --border-glow: 1px solid rgba(0, 255, 255, 0.35);
+            --transition-smooth: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+            --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 75px; }
+        body {
+            background: var(--dark-bg);
+            color: #e0e0e0;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            padding-top: 70px;
+            line-height: 1.6;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000c14; }
+        ::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 4px; box-shadow: 0 0 8px rgba(0,255,255,0.4); }
+        ::-webkit-scrollbar-thumb:hover { background: #00dddd; }
+
+        #matrix { position: fixed; top:0; left:0; z-index:-2; opacity:0.06; pointer-events:none; }
+        #particles { position: fixed; top:0; left:0; z-index:-1; pointer-events:none; opacity:0.7; }
+
+        .navbar {
+            background: rgba(0,15,25,0.92) !important; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-bottom: 2px solid var(--neon-cyan); box-shadow: 0 0 30px rgba(0,255,255,0.18);
+            z-index:1030; position:fixed; width:100%; transition: all 0.3s ease;
+        }
+        .navbar.scrolled { background: rgba(0,10,18,0.97) !important; box-shadow: 0 0 40px rgba(0,255,255,0.3); }
+        .navbar-brand {
+            font-family: 'Orbitron', sans-serif; font-weight:900; letter-spacing:3px; font-size:1.5rem;
+            background: var(--gradient-1); -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+            background-clip:text; animation: brandPulse 3s ease-in-out infinite;
+        }
+        @keyframes brandPulse { 0%,100%{filter:brightness(1);} 50%{filter:brightness(1.4);} }
+        .nav-link {
+            position:relative; padding:0.5rem 1.1rem !important; font-weight:500; letter-spacing:1.5px; font-size:0.9rem;
+            transition: var(--transition-smooth); color:#ccc !important;
+        }
+        .nav-link::after {
+            content:''; position:absolute; bottom:-2px; left:50%; transform:translateX(-50%);
+            width:0; height:2px; background:var(--neon-cyan); box-shadow:0 0 10px var(--neon-cyan);
+            transition: width 0.35s ease; border-radius:2px;
+        }
+        .nav-link:hover { color:#fff !important; text-shadow:0 0 10px rgba(0,255,255,0.6); }
+        .nav-link:hover::after { width:70%; }
+
+        .section-title {
+            font-family:'Orbitron',sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:4px;
+            position:relative; margin-bottom:3rem; background:var(--gradient-2);
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+            animation: titleGlow 2.5s ease-in-out infinite alternate; display:inline-block;
+        }
+        @keyframes titleGlow {
+            from { text-shadow:0 0 8px rgba(0,255,255,0.25); }
+            to { text-shadow:0 0 25px rgba(0,255,255,0.55),0 0 40px rgba(180,77,255,0.35); }
+        }
+        .section-title::after {
+            content:''; display:block; width:60px; height:3px; background:var(--neon-cyan);
+            margin:10px auto 0; border-radius:3px; box-shadow:0 0 15px var(--neon-cyan);
+        }
+
+        #about { position:relative; padding:5rem 0; }
+        .avatar-container { position:relative; display:inline-block; }
+        .avatar-container img {
+            border:3px solid var(--neon-cyan) !important; box-shadow:0 0 30px rgba(0,255,255,0.35),0 0 60px rgba(180,77,255,0.2);
+            transition: var(--transition-bounce); object-fit:cover;
+        }
+        .avatar-container:hover img { box-shadow:0 0 50px rgba(0,255,255,0.6),0 0 90px rgba(180,77,255,0.4); transform:scale(1.04); }
+        .avatar-ring { position:absolute; inset:-12px; border-radius:50%; border:2px dashed rgba(0,255,255,0.4); animation:ringSpin 20s linear infinite; pointer-events:none; }
+        @keyframes ringSpin { from {transform:rotate(0deg);} to {transform:rotate(360deg);} }
+        .typing-text { font-family:'Fira Code',monospace; color:var(--neon-cyan); font-size:1.3rem; min-height:2rem; border-right:3px solid var(--neon-cyan); display:inline-block; padding-right:6px; animation:blinkCursor 0.8s step-end infinite; }
+        @keyframes blinkCursor { 50% {border-color:transparent;} }
+        .stat-card { background:var(--card-bg); border:var(--border-glow); border-radius:16px; padding:1.2rem; text-align:center; transition:var(--transition-bounce); backdrop-filter:blur(8px); }
+        .stat-card:hover { transform:translateY(-6px); box-shadow:var(--glow-cyan); border-color:var(--neon-cyan); }
+        .stat-number { font-family:'Orbitron',sans-serif; font-size:2.5rem; font-weight:900; background:var(--gradient-1); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+        .stat-label { font-size:0.85rem; letter-spacing:2px; color:#aaa; text-transform:uppercase; }
+
+        .project-card {
+            background:var(--card-bg) !important; border:var(--border-glow); border-radius:18px; backdrop-filter:blur(10px);
+            transition:var(--transition-bounce); overflow:hidden; height:100%; display:flex; flex-direction:column; position:relative;
+        }
+        .project-card::before {
+            content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
+            background: conic-gradient(from 0deg, transparent, rgba(0,255,255,0.06), transparent, rgba(180,77,255,0.06), transparent);
+            animation: cardShine 8s linear infinite; pointer-events:none; z-index:0;
+        }
+        @keyframes cardShine { from {transform:rotate(0deg);} to {transform:rotate(360deg);} }
+        .project-card>* { position:relative; z-index:1; }
+        .project-card:hover { transform:translateY(-10px); box-shadow:0 15px 40px rgba(0,255,255,0.3),0 0 60px rgba(180,77,255,0.2); border-color:var(--neon-cyan); }
+        .project-card .card-img-top { height:200px; object-fit:cover; border-bottom:2px solid var(--neon-cyan); transition:transform 0.5s ease; background:linear-gradient(135deg,#001a25,#000f18); }
+        .project-card:hover .card-img-top { transform:scale(1.06); }
+        .project-card .card-body { display:flex; flex-direction:column; flex:1; padding:1.5rem; }
+        .project-card .card-title { font-family:'Orbitron',sans-serif; font-size:1.1rem; letter-spacing:1px; color:var(--neon-cyan); }
+        .project-card .card-text { flex:1; color:#bbb; font-size:0.9rem; }
+        .badge-glow { border:1px solid rgba(0,255,255,0.4); box-shadow:0 0 8px rgba(0,255,255,0.2); letter-spacing:0.5px; font-weight:500; }
+        .btn-neon { background:transparent; border:2px solid var(--neon-cyan); color:var(--neon-cyan); border-radius:30px; padding:0.5rem 1.4rem; font-weight:600; letter-spacing:1px; transition:var(--transition-smooth); position:relative; overflow:hidden; text-decoration:none; display:inline-block; }
+        .btn-neon:hover { background:rgba(0,255,255,0.12); box-shadow:0 0 25px rgba(0,255,255,0.45); color:#fff; border-color:#fff; transform:translateY(-2px); }
+        .btn-neon-pink { border-color:var(--neon-pink); color:var(--neon-pink); }
+        .btn-neon-pink:hover { background:rgba(255,45,149,0.12); box-shadow:0 0 25px rgba(255,45,149,0.45); color:#fff; border-color:#fff; }
+
+        .skill-item { position:relative; padding:1.6rem 1rem; text-align:center; background:rgba(0,40,55,0.4); border-radius:16px; transition:var(--transition-bounce); border:1px solid transparent; cursor:default; overflow:hidden; }
+        .skill-item:hover { background:rgba(0,60,80,0.5); border-color:var(--neon-cyan); box-shadow:var(--glow-cyan); transform:translateY(-6px); }
+        .skill-icon { font-size:3rem; margin-bottom:0.8rem; transition:var(--transition-smooth); }
+        .skill-item:hover .skill-icon { transform:scale(1.2); filter:drop-shadow(0 0 10px var(--neon-cyan)); }
+        .progress { height:8px; background:rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; margin-top:0.8rem; }
+        .progress-bar { background:var(--gradient-2); border-radius:10px; transition:width 1.8s cubic-bezier(0.25,0.8,0.25,1); box-shadow:0 0 10px rgba(180,77,255,0.5); width:0; }
+        .skill-item.animated .progress-bar { width:var(--target-width); }
+
+        .timeline-item { position:relative; padding-left:2.5rem; margin-bottom:2rem; border-left:2px solid rgba(0,255,255,0.3); transition:var(--transition-smooth); }
+        .timeline-item:hover { border-left-color:var(--neon-cyan); }
+        .timeline-dot { position:absolute; left:-9px; top:0; width:16px; height:16px; border-radius:50%; background:var(--neon-cyan); box-shadow:0 0 15px var(--neon-cyan); transition:var(--transition-smooth); }
+        .timeline-item:hover .timeline-dot { box-shadow:0 0 25px var(--neon-cyan),0 0 40px rgba(0,255,255,0.6); transform:scale(1.3); }
+        .timeline-link { color:var(--neon-cyan); text-decoration:none; font-size:0.8rem; font-weight:600; letter-spacing:0.5px; transition:var(--transition-smooth); display:inline-block; margin-top:0.3rem; }
+        .timeline-link:hover { color:#fff; text-shadow:0 0 8px var(--neon-cyan); text-decoration:underline; }
+        .timeline-link i { margin-right:4px; }
+
+        .cert-badge { display:inline-block; background:rgba(0,60,80,0.5); border:1px solid rgba(0,255,255,0.35); border-radius:25px; padding:0.5rem 1.2rem; margin:0.3rem; font-size:0.85rem; letter-spacing:0.5px; transition:var(--transition-smooth); cursor:pointer; color:#ddd; text-decoration:none; }
+        .cert-badge:hover { background:rgba(0,100,130,0.55); border-color:var(--neon-cyan); box-shadow:var(--glow-cyan); transform:translateY(-3px); color:#fff; }
+        .cert-badge i { margin-right:4px; }
+
+        .contact-section { background:linear-gradient(180deg, #000f18, #00070c); border-top:2px solid var(--neon-cyan); padding:4rem 0; position:relative; }
+        .contact-item { text-decoration:none; color:#ddd; transition:var(--transition-smooth); display:inline-block; padding:0.5rem 1rem; border-radius:10px; }
+        .contact-item:hover { color:#fff; background:rgba(0,255,255,0.08); text-shadow:0 0 8px var(--neon-cyan); }
+        .social-icon-link { display:inline-flex; align-items:center; justify-content:center; width:55px; height:55px; border-radius:50%; border:2px solid rgba(0,255,255,0.4); color:var(--neon-cyan); font-size:1.5rem; transition:var(--transition-bounce); margin:0 0.6rem; text-decoration:none; }
+        .social-icon-link:hover { border-color:#fff; color:#fff; box-shadow:0 0 30px rgba(0,255,255,0.5); transform:translateY(-6px) rotate(8deg); background:rgba(0,255,255,0.1); }
+
+        #scrollTopBtn { position:fixed; bottom:90px; left:1.5rem; z-index:1040; width:44px; height:44px; border-radius:50%; background:rgba(0,30,45,0.9); border:2px solid var(--neon-cyan); color:var(--neon-cyan); font-size:1.2rem; cursor:pointer; display:none; transition:var(--transition-bounce); box-shadow:0 0 15px rgba(0,255,255,0.3); }
+        #scrollTopBtn:hover { background:var(--neon-cyan); color:#000; box-shadow:0 0 30px rgba(0,255,255,0.7); transform:translateY(-4px); }
+        #scrollTopBtn.visible { display:flex; align-items:center; justify-content:center; }
+
+        .glitch-hover { position:relative; display:inline-block; }
+        .glitch-hover:hover { animation:glitchSkew 0.3s ease-in-out; }
+        @keyframes glitchSkew { 0%,100%{transform:skew(0deg);} 25%{transform:skew(2deg);} 50%{transform:skew(-2deg);} 75%{transform:skew(1deg);} }
+
+        .chatbot-container { position:fixed; bottom:1.2rem; right:1.2rem; z-index:1050; }
+        .chatbot-toggle { width:62px; height:62px; border-radius:50%; border:none; background:var(--neon-cyan); color:#000; cursor:pointer; box-shadow:0 0 22px rgba(0,255,255,0.55); transition:var(--transition-bounce); display:flex; align-items:center; justify-content:center; position:relative; z-index:1051; font-size:1.6rem; }
+        .chatbot-toggle:hover { transform:scale(1.12) rotate(15deg); box-shadow:0 0 40px rgba(0,255,255,0.8); background:#fff; }
+        .chatbot-toggle .notification-dot { position:absolute; top:4px; right:6px; width:12px; height:12px; background:#ff2d95; border-radius:50%; animation:dotPulse 2s infinite; }
+        @keyframes dotPulse { 0%,100%{transform:scale(1); opacity:1;} 50%{transform:scale(1.6); opacity:0.5;} }
+        .chatbot-window { position:fixed; bottom:85px; right:1.2rem; width:92vw; max-width:380px; max-height:65vh; height:520px; background:rgba(0,18,30,0.97); border:2px solid var(--neon-cyan); border-radius:18px; backdrop-filter:blur(14px); transform:translateY(20px) scale(0.95); opacity:0; pointer-events:none; transition:all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275); display:flex; flex-direction:column; box-shadow:0 0 40px rgba(0,255,255,0.3); z-index:1050; }
+        .chatbot-window.active { opacity:1; pointer-events:all; transform:translateY(0) scale(1); }
+        .chatbot-header { padding:1rem 1.2rem; border-bottom:1px solid rgba(0,255,255,0.3); display:flex; justify-content:space-between; align-items:center; font-family:'Orbitron',sans-serif; letter-spacing:1px; }
+        .chatbot-messages { flex:1; padding:1rem; overflow-y:auto; display:flex; flex-direction:column; gap:0.7rem; }
+        .bot-message, .user-message { padding:0.7rem 1rem; border-radius:16px; max-width:84%; word-wrap:break-word; font-size:0.9rem; line-height:1.5; animation:msgPopIn 0.3s ease-out; }
+        @keyframes msgPopIn { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
+        .bot-message { background:rgba(0,50,65,0.55); border:1px solid var(--neon-cyan); align-self:flex-start; border-bottom-left-radius:4px; }
+        .user-message { background:rgba(0,90,110,0.35); border:1px solid rgba(255,255,255,0.2); align-self:flex-end; border-bottom-right-radius:4px; }
+        .quick-questions { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem; }
+        .quick-questions .btn { font-size:0.75rem; border-radius:20px; padding:0.3rem 0.8rem; letter-spacing:0.5px; white-space:nowrap; }
+        .typing-indicator { display:inline-flex; align-items:center; gap:5px; padding:10px 14px; }
+        .typing-dot { width:8px; height:8px; background:var(--neon-cyan); border-radius:50%; animation:typingBounce 1.4s infinite; }
+        .typing-dot:nth-child(2){animation-delay:0.2s;} .typing-dot:nth-child(3){animation-delay:0.4s;}
+        @keyframes typingBounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-5px);} }
+        .chatbot-input-container { display:flex; gap:0.5rem; padding:0.8rem 1rem; border-top:1px solid rgba(0,255,255,0.3); }
+        .chatbot-input { flex:1; position:relative; }
+        .chatbot-input input { width:100%; padding-right:42px; background:rgba(0,30,45,0.8); border:1px solid rgba(0,255,255,0.4); color:#fff; border-radius:25px; padding:0.55rem 1rem; font-family:'Rajdhani',sans-serif; font-size:0.95rem; }
+        .chatbot-input input:focus { outline:none; border-color:var(--neon-cyan); box-shadow:0 0 15px rgba(0,255,255,0.3); }
+        .voice-btn { position:absolute; right:8px; top:50%; transform:translateY(-50%); background:transparent; border:none; color:var(--neon-cyan); cursor:pointer; font-size:1.1rem; width:32px; height:32px; border-radius:50%; transition:var(--transition-smooth); display:flex; align-items:center; justify-content:center; }
+        .voice-btn:hover { background:rgba(0,255,255,0.15); }
+        .voice-btn.active { color:#ff2d95; animation:voicePulse 0.6s infinite; }
+        @keyframes voicePulse { 0%,100%{box-shadow:0 0 0 0 rgba(255,45,149,0.6);} 50%{box-shadow:0 0 0 14px rgba(255,45,149,0);} }
+        .suggestions-container { padding:0.5rem 0; }
+        .suggestions-title { font-size:0.78rem; color:var(--neon-cyan); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:0.5rem; }
+        .suggestion-item { background:rgba(0,50,65,0.35); border:1px solid rgba(0,255,255,0.2); border-radius:20px; padding:0.45rem 1rem; margin:0.25rem 0; cursor:pointer; transition:var(--transition-smooth); font-size:0.82rem; display:inline-block; margin-right:0.4rem; }
+        .suggestion-item:hover { background:rgba(0,90,120,0.5); border-color:var(--neon-cyan); box-shadow:0 0 10px rgba(0,255,255,0.25); }
+
+        @media (max-width:768px) {
+            .navbar-brand { font-size:1.2rem; letter-spacing:1px; }
+            .section-title { font-size:1.5rem; letter-spacing:2px; }
+            .project-card .card-img-top { height:160px; }
+            .stat-number { font-size:1.8rem; }
+            .chatbot-window { max-width:95vw; right:0.5rem; height:55vh; max-height:55vh; }
+        }
+        @media (max-width:576px) {
+            .chatbot-window { width:100vw; right:0; border-radius:18px 18px 0 0; max-width:100%; bottom:0; height:60vh; max-height:60vh; }
+            .chatbot-window.active { bottom:0; }
+            .chatbot-toggle { width:50px; height:50px; font-size:1.3rem; }
+            .avatar-container img { width:150px !important; height:150px !important; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+    <canvas id="particles"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand glitch-hover" href="#">ARYAN BAKSHI</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#about">ABOUT</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">PROJECTS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">SKILLS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#training">TRAINING</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">CONTACT</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container text-center">
+            <h2 class="section-title mb-4">AI/ML ENGINEER</h2>
+            <div class="avatar-container mb-4 hover-3d">
+                <div class="avatar-ring"></div>
+                <img src="images/Aryan_Image.png"
+                alt="Aryan Bakshi"
+                class="img-fluid rounded-circle"
+                style="width: 220px; height: 220px; object-fit: cover;"
+                onerror="this.src='images/Aryan_Image.webp';this.onerror=function(){this.style.display='none';this.nextElementSibling.style.display='flex';}">
+                <div style="display:none;width:220px;height:220px;border-radius:50%;background:linear-gradient(135deg,#001a30,#000f1a);align-items:center;justify-content:center;font-size:5rem;color:#0ff;border:3px solid #0ff;margin:0 auto;">
+                    <i class="fas fa-user-astronaut"></i>
+                </div>
+            </div>
+            <p class="lead mb-4" style="max-width: 780px; margin: 0 auto; font-size: 1.15rem; color: #ccc;">
+                <span class="typing-text" id="typingText"></span>
+            </p>
+            <p class="mb-4" style="max-width: 750px; margin: 0 auto; color: #bbb; font-size: 1rem;">
+                Dedicated <strong style="color:#0ff;">B.Tech AIML</strong> student at Chandigarh Group of Colleges, Jhanjeri with strong proficiency in 
+                <strong>Python, NumPy, Pandas</strong>. Passionate about <strong>NLP, data analysis</strong> and building intelligent systems.
+                Actively involved in technical workshops and coding contests, with a growing understanding of software development practices.
+            </p>
+            <div class="row g-3 justify-content-center mt-4">
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="2">0</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="4">0</div>
+                        <div class="stat-label">Certifications</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="8">0</div>
+                        <div class="stat-label">Tech Skills</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="1">0</div>
+                        <div class="stat-label">Internships</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <a href="#contact" class="btn btn-neon btn-lg mx-2 mb-2"><i class="fas fa-handshake me-2"></i>Hire Me</a>
+                <a href="Aryan_Resume.pdf" download class="btn btn-neon btn-neon-pink btn-lg mx-2 mb-2">
+                    <i class="fas fa-download me-2"></i>Download Resume
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section (Calculator project removed) -->
+    <section id="projects" class="py-5" style="background: rgba(0,8,16,0.7);">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">FEATURED PROJECTS</h2>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card">
+                        <img src="images/projects/fake-news.jpg" class="card-img-top" alt="Fake News Detector"
+                        onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                        <div style="display:none;height:200px;background:linear-gradient(135deg,#001a2e,#000f1c);align-items:center;justify-content:center;font-size:4rem;color:#0ff;" class="card-img-top">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Fake News Detector</h5>
+                            <div class="mb-3">
+                                <span class="badge bg-info badge-glow me-1">Python</span>
+                                <span class="badge bg-success badge-glow me-1">NLP</span>
+                                <span class="badge bg-warning text-dark badge-glow">ML</span>
+                            </div>
+                            <p class="card-text">Classifies news articles as real or fake using NLP techniques. Text pre-processing and machine learning algorithms improve detection accuracy.</p>
+                            <p class="card-text"><small style="color:#0ff;">Tech: Python, NLP, Machine Learning</small></p>
+                            <div class="mt-auto">
+                                <a href="https://github.com/aryanbakshi0020/Fake-news-deatector" target="_blank" class="btn btn-neon btn-sm">
+                                    <i class="fab fa-github me-2"></i>View Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card">
+                        <img src="images/projects/air-quality.jpg" class="card-img-top" alt="Air Quality Analysis"
+                        onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                        <div style="display:none;height:200px;background:linear-gradient(135deg,#001a2e,#000f1c);align-items:center;justify-content:center;font-size:4rem;color:#b44dff;" class="card-img-top">
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Air Quality Analysis</h5>
+                            <div class="mb-3">
+                                <span class="badge bg-primary badge-glow me-1">Pandas</span>
+                                <span class="badge bg-info badge-glow me-1">NumPy</span>
+                                <span class="badge bg-success badge-glow">EDA</span>
+                            </div>
+                            <p class="card-text">Exploratory Data Analysis on environmental datasets to identify pollution patterns and trends. Created insightful visualizations.</p>
+                            <p class="card-text"><small style="color:#0ff;">Tech: Python, Pandas, NumPy</small></p>
+                            <div class="mt-auto">
+                                <a href="https://github.com/aryanbakshi0020/Air-quality-analysis" target="_blank" class="btn btn-neon btn-sm">
+                                    <i class="fab fa-github me-2"></i>View Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">TECHNICAL EXPERTISE</h2>
+            <div class="row g-4 justify-content-center">
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="skill-item" data-target="90">
+                        <div class="skill-icon">🐍</div>
+                        <h5 style="font-weight:600;">Python</h5>
+                        <div class="progress"><div class="progress-bar" style="--target-width:90%;"></div></div>
+                        <small style="color:#aaa;">NumPy, Pandas</small>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="skill-item" data-target="85">
+                        <div class="skill-icon">🗄️</div>
+                        <h5 style="font-weight:600;">SQL & DBMS</h5>
+                        <div class="progress"><div class="progress-bar" style="--target-width:85%;"></div></div>
+                        <small style="color:#aaa;">MySQL, PostgreSQL</small>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="skill-item" data-target="80">
+                        <div class="skill-icon">🧠</div>
+                        <h5 style="font-weight:600;">Machine Learning</h5>
+                        <div class="progress"><div class="progress-bar" style="--target-width:80%;"></div></div>
+                        <small style="color:#aaa;">scikit-learn, NLP</small>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="skill-item" data-target="85">
+                        <div class="skill-icon">📊</div>
+                        <h5 style="font-weight:600;">Data Analysis</h5>
+                        <div class="progress"><div class="progress-bar" style="--target-width:85%;"></div></div>
+                        <small style="color:#aaa;">Pandas, NumPy, EDA</small>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="skill-item" data-target="75">
+                        <div class="skill-icon">➕</div>
+                        <h5 style="font-weight:600;">C++</h5>
+                        <div class="progress"><div class="progress-bar" style="--target-width:75%;"></div></div>
+                        <small style="color:#aaa;">Data Structures</small>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="skill-item" data-target="80">
+                        <div class="skill-icon">🔧</div>
+                        <h5 style="font-weight:600;">DSA / OOP</h5>
+                        <div class="progress"><div class="progress-bar" style="--target-width:80%;"></div></div>
+                        <small style="color:#aaa;">Core CS Concepts</small>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="skill-item" data-target="80">
+                        <div class="skill-icon">🐙</div>
+                        <h5 style="font-weight:600;">Git & GitHub</h5>
+                        <div class="progress"><div class="progress-bar" style="--target-width:80%;"></div></div>
+                        <small style="color:#aaa;">Version Control</small>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="skill-item" data-target="85">
+                        <div class="skill-icon">☁️</div>
+                        <h5 style="font-weight:600;">OS & CN</h5>
+                        <div class="progress"><div class="progress-bar" style="--target-width:85%;"></div></div>
+                        <small style="color:#aaa;">Operating Systems, Networks</small>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <h5 style="color:#0ff;letter-spacing:2px;text-transform:uppercase;font-family:'Orbitron',sans-serif;">Soft Skills</h5>
+                <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+                    <span class="cert-badge" style="cursor:default;"><i class="fas fa-puzzle-piece me-1"></i> Problem Solving</span>
+                    <span class="cert-badge" style="cursor:default;"><i class="fas fa-brain me-1"></i> Analytical Thinking</span>
+                    <span class="cert-badge" style="cursor:default;"><i class="fas fa-question-circle me-1"></i> Critical Thinking</span>
+                    <span class="cert-badge" style="cursor:default;"><i class="fas fa-check-circle me-1"></i> Decision Making</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Training & Certifications Section -->
+    <section id="training" class="py-5" style="background: rgba(0,8,16,0.7);">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">TRAINING & CERTIFICATIONS</h2>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <h4 style="color:#0ff;letter-spacing:2px;font-family:'Orbitron',sans-serif;margin-bottom:1.5rem;">
+                        <i class="fas fa-briefcase me-2"></i>TRAINING & INTERNSHIPS
+                    </h4>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h6 style="color:#fff;font-weight:700;">Artificial Intelligence Internship</h6>
+                        <small style="color:#0ff;">CodeTech · 6‑Week Online</small>
+                        <p style="color:#bbb;font-size:0.9rem;margin-top:0.3rem;">Hands‑on AI project development as part of a structured internship program.</p>
+                        <a href="https://drive.google.com/file/d/1Msartvfz2LctVCob8LGaoysYe6I0HnXz/view" target="_blank" class="timeline-link">
+                            <i class="fas fa-external-link-alt"></i> View Credential
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h4 style="color:#b44dff;letter-spacing:2px;font-family:'Orbitron',sans-serif;margin-bottom:1.5rem;">
+                        <i class="fas fa-certificate me-2"></i>CERTIFICATIONS
+                    </h4>
+                    <div class="d-flex flex-wrap gap-2 mb-4">
+                        <a href="https://drive.google.com/file/d/1skd25zuGC6BLXq2mwDhAP1frTQqT2dNM/view" target="_blank" class="cert-badge">
+                            <i class="fas fa-cloud"></i> AWS Academy – Generative AI Foundations
+                        </a>
+                        <a href="https://drive.google.com/file/d/1c8DdkP5myNha7BfZYLpXVGaaYSa39InO/view" target="_blank" class="cert-badge">
+                            <i class="fas fa-mobile-alt"></i> Nasscom – Mobile App Development
+                        </a>
+                        <a href="https://drive.google.com/file/d/1rPGaNvV7gnnqaUfPZeGR2gx4QTckizGh/view" target="_blank" class="cert-badge">
+                            <i class="fas fa-info-circle"></i> IBM SkillsBuild – IT Fundamentals
+                        </a>
+                        <a href="https://drive.google.com/file/d/1Msartvfz2LctVCob8LGaoysYe6I0HnXz/view" target="_blank" class="cert-badge">
+                            <i class="fas fa-robot"></i> CodeTech – AI Internship
+                        </a>
+                    </div>
+                    <h4 style="color:#0f0;letter-spacing:2px;font-family:'Orbitron',sans-serif;margin-top:2rem;margin-bottom:1rem;">
+                        <i class="fas fa-graduation-cap me-2"></i>EDUCATION
+                    </h4>
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background:#0f0;box-shadow:0 0 15px #0f0;"></div>
+                        <h6 style="color:#fff;font-weight:700;">B.Tech AIML – CGPA: 7.5</h6>
+                        <small style="color:#0f0;">Chandigarh Group of Colleges, Jhanjeri | 2023–2027</small>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background:#b44dff;box-shadow:0 0 15px #b44dff;"></div>
+                        <h6 style="color:#fff;font-weight:700;">Senior Secondary – 93%</h6>
+                        <small style="color:#b44dff;">Tulsi Public School, Ambala, Haryana</small>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background:#ff2d95;box-shadow:0 0 15px #ff2d95;"></div>
+                        <h6 style="color:#fff;font-weight:700;">Secondary School – 90%</h6>
+                        <small style="color:#ff2d95;">Tulsi Public School, Ambala, Haryana</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section (Phone number added) -->
+    <section id="contact" class="contact-section">
+        <div class="container text-center">
+            <h2 class="section-title mb-5">CONNECT WITH ME</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-info mb-5">
+                        <div class="d-flex flex-wrap justify-content-center gap-4">
+                            <a href="mailto:aryanbakshi002@gmail.com" class="contact-item">
+                                <i class="fas fa-envelope fa-2x" style="color:#0ff;"></i>
+                                <p class="mt-2" style="color:#ddd;">aryanbakshi002@gmail.com</p>
+                            </a>
+                            <a href="tel:+919416016040" class="contact-item">
+                                <i class="fas fa-phone fa-2x" style="color:#0ff;"></i>
+                                <p class="mt-2" style="color:#ddd;">+91 9416016040</p>
+                            </a>
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt fa-2x" style="color:#ff2d95;"></i>
+                                <p class="mt-2" style="color:#ddd;">Ambala, Haryana, India</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-links mb-4">
+                        <a href="https://www.linkedin.com/in/aryan-bakshi-84604a317/" target="_blank" class="social-icon-link" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/aryanbakshi0020" target="_blank" class="social-icon-link" title="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://leetcode.com/u/So6oFtvDZT/" target="_blank" class="social-icon-link" title="LeetCode">
+                            <i class="fas fa-code"></i>
+                        </a>
+                        <a href="https://www.hackerrank.com/profile/aryanbakshi002" target="_blank" class="social-icon-link" title="HackerRank">
+                            <i class="fab fa-hackerrank"></i>
+                        </a>
+                        <a href="mailto:aryanbakshi002@gmail.com" class="social-icon-link" title="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                    <a href="Aryan_Resume.pdf" download class="btn btn-neon btn-lg mt-3">
+                        <i class="fas fa-file-pdf me-2"></i>Download My Resume
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <button id="scrollTopBtn" title="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Chatbot (Calculator project removed from knowledge base) -->
+    <div class="chatbot-container">
+        <button class="chatbot-toggle" id="chatbotToggle" title="Chat with AI Assistant">
+            <i class="fas fa-robot"></i>
+            <span class="notification-dot"></span>
+        </button>
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h5 style="margin:0;color:#0ff;font-size:1rem;">🤖 Recruiter AI Assistant</h5>
+                <button class="btn-close btn-close-white" id="chatbotClose" style="filter:drop-shadow(0 0 4px #0ff);"></button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="bot-message">
+                    <div class="message-content">
+                        Hello! I'm <strong>Aryan's AI Assistant</strong>. 👋<br>
+                        Ask me about his <strong>skills, projects, experience, certifications,</strong> or how to <strong>contact him</strong>.
+                    </div>
+                    <div class="quick-questions mt-2">
+                        <button class="btn btn-sm btn-outline-info" data-question="Tell me about your projects">📁 Projects</button>
+                        <button class="btn btn-sm btn-outline-info" data-question="What are your technical skills?">🛠️ Skills</button>
+                        <button class="btn btn-sm btn-outline-info" data-question="Share your contact details">📞 Contact</button>
+                        <button class="btn btn-sm btn-outline-info" data-question="What certifications do you have?">📜 Certs</button>
+                    </div>
+                </div>
+            </div>
+            <div class="chatbot-input-container">
+                <div class="chatbot-input">
+                    <input type="text" class="form-control" placeholder="Ask me anything about Aryan..." id="chatbotInputField">
+                    <button class="voice-btn" id="voiceBtn" title="Voice input"><i class="fas fa-microphone"></i></button>
+                </div>
+                <button class="btn btn-info" id="sendBtn" style="border-radius:50%;width:42px;height:42px;padding:0;display:flex;align-items:center;justify-content:center;">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        (function() {
+            const matrixCanvas = document.getElementById('matrix');
+            const matrixCtx = matrixCanvas.getContext('2d');
+            let animationFrame;
+            const dpr = window.devicePixelRatio || 1;
+            const chars = 'アイウエオカキクケコサシスセソタチツテト01';
+            const fontSize = 15;
+            let columns = 0;
+            const drops = [];
+
+            function resizeMatrix() {
+                const w = window.innerWidth * dpr;
+                const h = window.innerHeight * dpr;
+                matrixCanvas.width = w;
+                matrixCanvas.height = h;
+                matrixCtx.scale(dpr, dpr);
+                columns = Math.floor(window.innerWidth / fontSize);
+                drops.length = columns;
+                drops.fill(1);
+            }
+
+            function drawMatrix() {
+                matrixCtx.fillStyle = 'rgba(0,0,0,0.04)';
+                matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+                matrixCtx.fillStyle = '#0F0';
+                matrixCtx.font = `${fontSize}px 'Fira Code', monospace`;
+                drops.forEach((drop, i) => {
+                    const char = chars[Math.floor(Math.random() * chars.length)];
+                    matrixCtx.fillText(char, i * fontSize, drop * fontSize);
+                    if (drop * fontSize > window.innerHeight && Math.random() > 0.975) drops[i] = 0;
+                    drops[i]++;
+                });
+                animationFrame = requestAnimationFrame(drawMatrix);
+            }
+
+            const particlesCanvas = document.getElementById('particles');
+            const pCtx = particlesCanvas.getContext('2d');
+            let pAnimationFrame;
+            const particles = [];
+            const maxParticles = 50;
+
+            function resizeParticles() {
+                particlesCanvas.width = window.innerWidth * dpr;
+                particlesCanvas.height = window.innerHeight * dpr;
+                pCtx.scale(dpr, dpr);
+            }
+
+            function createParticle() {
+                return {
+                    x: Math.random() * window.innerWidth,
+                    y: Math.random() * window.innerHeight,
+                    vx: (Math.random() - 0.5) * 0.6,
+                    vy: (Math.random() - 0.5) * 0.6,
+                    size: Math.random() * 2.5 + 0.8,
+                    alpha: Math.random() * 0.5 + 0.2,
+                    color: Math.random() < 0.5 ? '0,255,255' : '180,77,255',
+                };
+            }
+
+            function initParticles() {
+                particles.length = 0;
+                for (let i = 0; i < maxParticles; i++) particles.push(createParticle());
+            }
+
+            function drawParticles() {
+                pCtx.clearRect(0, 0, particlesCanvas.width, particlesCanvas.height);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0) p.x = window.innerWidth;
+                    if (p.x > window.innerWidth) p.x = 0;
+                    if (p.y < 0) p.y = window.innerHeight;
+                    if (p.y > window.innerHeight) p.y = 0;
+                    pCtx.beginPath();
+                    pCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    pCtx.fillStyle = `rgba(${p.color},${p.alpha})`;
+                    pCtx.fill();
+                    particles.forEach(p2 => {
+                        const dx = p.x - p2.x;
+                        const dy = p.y - p2.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 100) {
+                            pCtx.beginPath();
+                            pCtx.moveTo(p.x, p.y);
+                            pCtx.lineTo(p2.x, p2.y);
+                            pCtx.strokeStyle = `rgba(${p.color},${0.06 * (1 - dist/100)})`;
+                            pCtx.lineWidth = 0.5;
+                            pCtx.stroke();
+                        }
+                    });
+                });
+                pAnimationFrame = requestAnimationFrame(drawParticles);
+            }
+
+            window.addEventListener('load', () => {
+                resizeMatrix();
+                drawMatrix();
+                resizeParticles();
+                initParticles();
+                drawParticles();
+            });
+            window.addEventListener('resize', () => {
+                resizeMatrix();
+                resizeParticles();
+                initParticles();
+            });
+            window.addEventListener('orientationchange', () => {
+                setTimeout(() => { resizeMatrix(); resizeParticles(); initParticles(); }, 300);
+            });
+            window.addEventListener('beforeunload', () => {
+                cancelAnimationFrame(animationFrame);
+                cancelAnimationFrame(pAnimationFrame);
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const offset = 75;
+                        const pos = target.getBoundingClientRect().top + window.pageYOffset;
+                        window.scrollTo({ top: pos - offset, behavior: 'smooth' });
+                        history.pushState(null, null, `#${target.id}`);
+                    }
+                });
+            });
+
+            const nav = document.getElementById('mainNav');
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.scrollY;
+                if (currentScroll > 50) nav.classList.add('scrolled');
+                else nav.classList.remove('scrolled');
+                const stb = document.getElementById('scrollTopBtn');
+                if (currentScroll > 400) stb.classList.add('visible');
+                else stb.classList.remove('visible');
+            });
+            document.getElementById('scrollTopBtn').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            const typingTexts = [
+                'Aspiring AI/ML Engineer | B.Tech AIML Student',
+                'Passionate about NLP and Data Analysis',
+                'Building intelligent systems with Python',
+                'Skilled in Python, NumPy, Pandas',
+            ];
+            let textIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            const typingEl = document.getElementById('typingText');
+
+            function typeEffect() {
+                const current = typingTexts[textIndex];
+                if (isDeleting) {
+                    typingEl.textContent = current.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    typingEl.textContent = current.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+                if (!isDeleting && charIndex === current.length) {
+                    setTimeout(() => { isDeleting = true; }, 2000);
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    textIndex = (textIndex + 1) % typingTexts.length;
+                }
+                const speed = isDeleting ? 35 : 70;
+                setTimeout(typeEffect, speed);
+            }
+            typeEffect();
+
+            function animateStats() {
+                document.querySelectorAll('.stat-number[data-count]').forEach(el => {
+                    const target = parseInt(el.getAttribute('data-count'));
+                    const duration = 2000;
+                    const startTime = performance.now();
+
+                    function update(now) {
+                        const elapsed = now - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        el.textContent = Math.floor(eased * target) + '+';
+                        if (progress < 1) requestAnimationFrame(update);
+                    }
+                    requestAnimationFrame(update);
+                });
+            }
+            const aboutSection = document.getElementById('about');
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateStats();
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+            statsObserver.observe(aboutSection);
+
+            const skillsSection = document.getElementById('skills');
+            const skillsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        document.querySelectorAll('.skill-item').forEach(item => {
+                            item.classList.add('animated');
+                        });
+                        skillsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.25 });
+            skillsObserver.observe(skillsSection);
+
+            const chatbot = {
+                isListening: false,
+                recognition: null,
+                hasShownInitialSuggestions: false,
+
+                knowledgeBase: {
+                    personal: {
+                        name: 'Aryan Bakshi',
+                        email: 'aryanbakshi002@gmail.com',
+                        phone: '+91 9416016040',
+                        github: 'https://github.com/aryanbakshi0020',
+                        linkedin: 'https://www.linkedin.com/in/aryan-bakshi-84604a317/',
+                        leetcode: 'https://leetcode.com/u/So6oFtvDZT/',
+                        hackerrank: 'https://www.hackerrank.com/profile/aryanbakshi002',
+                        resume: 'Aryan_Resume.pdf',
+                        cgpa: '7.5',
+                        college: 'Chandigarh Group of Colleges, Jhanjeri',
+                        degree: 'B.Tech AIML 2023-2027',
+                        address: 'Ambala, Haryana, India'
+                    },
+                    skills: {
+                        technical: [
+                            'Python (NumPy, Pandas)',
+                            'SQL, C++',
+                            'Machine Learning, NLP',
+                            'Data Analysis (EDA)',
+                            'Git, GitHub, VSCode, Jupyter Notebook',
+                            'Salesforce CRM',
+                            'Data Structures & Algorithms',
+                            'Object-Oriented Programming',
+                            'Operating Systems, DBMS, Computer Networks'
+                        ],
+                        soft: ['Problem Solving', 'Analytical Thinking', 'Critical Thinking', 'Decision Making']
+                    },
+                    projects: [
+                        {
+                            name: 'Fake News Detector',
+                            desc: 'Classifies news articles as real or fake using NLP and ML algorithms.',
+                            tech: 'Python, NLP, Machine Learning',
+                            link: 'https://github.com/aryanbakshi0020/Fake-news-deatector',
+                        },
+                        {
+                            name: 'Air Quality Analysis',
+                            desc: 'Exploratory Data Analysis on environmental datasets, identifying pollution trends with visualizations.',
+                            tech: 'Python, Pandas, NumPy',
+                            link: 'https://github.com/aryanbakshi0020/Air-quality-analysis',
+                        }
+                        // Calculator project removed
+                    ],
+                    training: [
+                        'Artificial Intelligence Internship at CodeTech (6-week online)'
+                    ],
+                    certifications: [
+                        'AWS Academy – Generative AI Foundations',
+                        'Nasscom – Mobile App Development',
+                        'IBM SkillsBuild – Information Technology Fundamentals',
+                        'CodeTech – Artificial Intelligence Internship'
+                    ]
+                },
+
+                getResponse: function(question) {
+                    const q = question.toLowerCase().trim();
+
+                    if (/^(hello|hi|hey|greetings|good\s(morning|afternoon|evening)|yo)\b/.test(q)) {
+                        return `Hello! 👋 I'm Aryan's AI assistant. How can I help you today?<br><br>You can ask about:<br>• <b>Projects</b> – "Tell me about your projects"<br>• <b>Skills</b> – "What are your technical skills?"<br>• <b>Experience</b> – "What training have you done?"<br>• <b>Contact</b> – "How can I reach you?"<br>• <b>Resume</b> – "Share your resume"`;
+                    }
+
+                    if (/resume|CV|download/.test(q)) {
+                        return `📄 You can download my resume here: <a href="Aryan_Resume.pdf" download style="color:#0ff;text-decoration:underline;">Aryan_Resume.pdf</a>`;
+                    }
+
+                    if (/contact|address|location|reach|email|phone|whatsapp|call/.test(q)) {
+                        return `📞 <b>Contact Details:</b><br>
+                        • <b>Email:</b> aryanbakshi002@gmail.com<br>
+                        • <b>Phone:</b> +91 9416016040<br>
+                        • <b>Location:</b> Ambala, Haryana, India<br>
+                        • <b>LinkedIn:</b> <a href="https://www.linkedin.com/in/aryan-bakshi-84604a317/" target="_blank" style="color:#0ff;">linkedin.com/in/aryan-bakshi-84604a317/</a><br>
+                        • <b>GitHub:</b> <a href="https://github.com/aryanbakshi0020" target="_blank" style="color:#0ff;">github.com/aryanbakshi0020</a><br>
+                        • <b>LeetCode:</b> <a href="https://leetcode.com/u/So6oFtvDZT/" target="_blank" style="color:#0ff;">leetcode.com/u/So6oFtvDZT/</a><br>
+                        • <b>HackerRank:</b> <a href="https://www.hackerrank.com/profile/aryanbakshi002" target="_blank" style="color:#0ff;">hackerrank.com/profile/aryanbakshi002</a>`;
+                    }
+
+                    if (/skill|tech|technology|stack|proficien|what.*(know|can.*do)|programming|language/.test(q)) {
+                        return `🛠️ <b>Technical Skills:</b><br>• ${this.knowledgeBase.skills.technical.join('<br>• ')}<br><br>💡 <b>Soft Skills:</b><br>• ${this.knowledgeBase.skills.soft.join('<br>• ')}`;
+                    }
+
+                    if (/project|portfolio|work|built|created|developed|github/.test(q)) {
+                        let resp = `📁 <b>Featured Projects:</b><br><br>`;
+                        this.knowledgeBase.projects.forEach((p, i) => {
+                            resp += `<b>${i+1}. ${p.name}</b><br>${p.desc}<br><small>Tech: ${p.tech}</small><br>`;
+                            if (p.link) resp += `🔗 <a href="${p.link}" target="_blank" style="color:#0ff;">View on GitHub</a><br><br>`;
+                            else resp += `<br>`;
+                        });
+                        return resp;
+                    }
+
+                    if (/fake|news|detector|classif/.test(q)) {
+                        const p = this.knowledgeBase.projects[0];
+                        return `📰 <b>${p.name}</b><br><br>${p.desc}<br><br><b>Tech Stack:</b> ${p.tech}<br>🔗 <a href="${p.link}" target="_blank" style="color:#0ff;">View on GitHub</a>`;
+                    }
+                    if (/air|quality|pollution|EDA|pandas/.test(q)) {
+                        const p = this.knowledgeBase.projects[1];
+                        return `🌬️ <b>${p.name}</b><br><br>${p.desc}<br><br><b>Tech Stack:</b> ${p.tech}<br>🔗 <a href="${p.link}" target="_blank" style="color:#0ff;">View on GitHub</a>`;
+                    }
+                    // Removed calculator-specific responses
+
+                    if (/training|internship|experience|work|job|codetech/.test(q)) {
+                        return `💼 <b>Training & Internships:</b><br><br>• ${this.knowledgeBase.training[0]}`;
+                    }
+
+                    if (/certif|award|credential|badge|certificate/.test(q)) {
+                        return `📜 <b>Certifications:</b><br><br>• ${this.knowledgeBase.certifications.join('<br>• ')}`;
+                    }
+
+                    if (/education|college|school|university|degree|CGPA|academic|study/.test(q)) {
+                        return `🎓 <b>Education:</b><br>
+                        • <b>B.Tech AIML</b> – Chandigarh Group of Colleges, Jhanjeri (2023–2027) | CGPA: 7.5<br>
+                        • <b>Senior Secondary</b> – Tulsi Public School, Ambala, Haryana | 93%<br>
+                        • <b>Secondary School</b> – Tulsi Public School, Ambala, Haryana | 90%`;
+                    }
+
+                    if (/github/.test(q)) return `🐙 <b>GitHub:</b> <a href="https://github.com/aryanbakshi0020" target="_blank" style="color:#0ff;">github.com/aryanbakshi0020</a>`;
+                    if (/linkedin/.test(q)) return `🔗 <b>LinkedIn:</b> <a href="https://www.linkedin.com/in/aryan-bakshi-84604a317/" target="_blank" style="color:#0ff;">linkedin.com/in/aryan-bakshi-84604a317/</a>`;
+                    if (/leetcode/.test(q)) return `💻 <b>LeetCode:</b> <a href="https://leetcode.com/u/So6oFtvDZT/" target="_blank" style="color:#0ff;">leetcode.com/u/So6oFtvDZT/</a>`;
+                    if (/hackerrank/.test(q)) return `👨‍💻 <b>HackerRank:</b> <a href="https://www.hackerrank.com/profile/aryanbakshi002" target="_blank" style="color:#0ff;">hackerrank.com/profile/aryanbakshi002</a>`;
+
+                    if (/about|who.*(are|is).*you|tell.*about.*(yourself|you)|introduce/.test(q)) {
+                        return `👨‍💻 I'm <b>Aryan Bakshi</b>, a B.Tech AIML student at CGC Jhanjeri (CGPA: 7.5). I specialize in Python, NLP, and data analysis. I hold certifications from AWS, Nasscom, and IBM, and I'm actively building AI-driven projects.`;
+                    }
+
+                    return `🤔 I'd love to help! Try asking about:<br><br>
+                    • <b>"Tell me about your projects"</b><br>
+                    • <b>"What are your skills?"</b><br>
+                    • <b>"Share your contact details"</b><br>
+                    • <b>"What training have you done?"</b><br>
+                    • <b>"Show me your certifications"</b><br>
+                    • <b>"Download your resume"</b><br><br>
+                    Or just say <b>"Hello"</b> to start! 😊`;
+                },
+
+                initVoiceRecognition: function() {
+                    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    if (!SR) return false;
+                    this.recognition = new SR();
+                    this.recognition.continuous = false;
+                    this.recognition.interimResults = false;
+                    this.recognition.lang = 'en-US';
+                    this.recognition.onstart = () => {
+                        this.isListening = true;
+                        const vb = document.getElementById('voiceBtn');
+                        vb.innerHTML = '<i class="fas fa-microphone-slash"></i>';
+                        vb.classList.add('active');
+                        this.addMessage('🎤 Listening... Speak now!', 'bot');
+                    };
+                    this.recognition.onerror = () => {
+                        this.isListening = false;
+                        const vb = document.getElementById('voiceBtn');
+                        vb.innerHTML = '<i class="fas fa-microphone"></i>';
+                        vb.classList.remove('active');
+                        this.addMessage('Sorry, I couldn\'t hear you. Please try again or type.', 'bot');
+                    };
+                    this.recognition.onend = () => {
+                        this.isListening = false;
+                        const vb = document.getElementById('voiceBtn');
+                        vb.innerHTML = '<i class="fas fa-microphone"></i>';
+                        vb.classList.remove('active');
+                    };
+                    this.recognition.onresult = (event) => {
+                        const transcript = event.results[0][0].transcript;
+                        document.getElementById('chatbotInputField').value = transcript;
+                        this.processUserInput(transcript);
+                    };
+                    return true;
+                },
+
+                toggleVoice: function() {
+                    if (!this.recognition && !this.initVoiceRecognition()) {
+                        this.addMessage('Voice input not supported in this browser. Please type.', 'bot');
+                        return;
+                    }
+                    if (this.isListening) this.recognition.stop();
+                    else this.recognition.start();
+                },
+
+                processUserInput: function(input) {
+                    if (!input.trim()) return;
+                    this.addMessage(input, 'user');
+                    document.getElementById('chatbotInputField').value = '';
+                    const typingIndicator = this.showTypingIndicator();
+                    setTimeout(() => {
+                        typingIndicator.remove();
+                        const response = this.getResponse(input);
+                        this.addMessage(response, 'bot');
+                        if (!this.hasShownInitialSuggestions) {
+                            this.showSuggestions();
+                            this.hasShownInitialSuggestions = true;
+                        }
+                    }, 800 + Math.random() * 900);
+                },
+
+                showTypingIndicator: function() {
+                    const md = document.getElementById('chatbotMessages');
+                    const div = document.createElement('div');
+                    div.className = 'bot-message typing-indicator';
+                    div.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+                    md.appendChild(div);
+                    md.scrollTop = md.scrollHeight;
+                    return div;
+                },
+
+                showSuggestions: function() {
+                    const md = document.getElementById('chatbotMessages');
+                    document.querySelectorAll('.suggestions-container').forEach(el => el.remove());
+                    const suggestions = [
+                        'Tell me about your projects',
+                        'What are your technical skills?',
+                        'Share your contact details',
+                        'What certifications do you have?',
+                        'Tell me about your training',
+                        'Download your resume',
+                    ];
+                    const container = document.createElement('div');
+                    container.className = 'suggestions-container';
+                    container.innerHTML = `
+                        <div class="suggestions-title">💡 Quick Questions:</div>
+                        ${suggestions.map(s => `<div class="suggestion-item" data-question="${s}">${s}</div>`).join('')}
+                    `;
+                    md.appendChild(container);
+                    md.scrollTop = md.scrollHeight;
+                },
+
+                addMessage: function(content, sender) {
+                    const md = document.getElementById('chatbotMessages');
+                    const div = document.createElement('div');
+                    div.className = `${sender}-message`;
+                    div.innerHTML = `<div class="message-content">${content.replace(/\n/g, '<br>')}</div>`;
+                    md.appendChild(div);
+                    md.scrollTop = md.scrollHeight;
+                },
+            };
+
+            document.getElementById('chatbotToggle').addEventListener('click', () => {
+                const win = document.getElementById('chatbotWindow');
+                win.classList.toggle('active');
+                if (win.classList.contains('active')) {
+                    document.querySelector('.notification-dot').style.display = 'none';
+                }
+            });
+            document.getElementById('chatbotClose').addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.getElementById('chatbotWindow').classList.remove('active');
+            });
+            document.getElementById('sendBtn').addEventListener('click', () => {
+                const input = document.getElementById('chatbotInputField');
+                chatbot.processUserInput(input.value.trim());
+            });
+            document.getElementById('chatbotInputField').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const input = document.getElementById('chatbotInputField');
+                    chatbot.processUserInput(input.value.trim());
+                }
+            });
+            document.getElementById('voiceBtn').addEventListener('click', () => chatbot.toggleVoice());
+            document.getElementById('chatbotMessages').addEventListener('click', (e) => {
+                const suggestion = e.target.closest('.suggestion-item');
+                if (suggestion) {
+                    const question = suggestion.dataset.question;
+                    document.getElementById('chatbotInputField').value = question;
+                    chatbot.processUserInput(question);
+                }
+                const quickBtn = e.target.closest('[data-question]');
+                if (quickBtn && !e.target.closest('.suggestion-item')) {
+                    const question = quickBtn.dataset.question;
+                    chatbot.processUserInput(question);
+                }
+            });
+
+            chatbot.showSuggestions();
+            chatbot.hasShownInitialSuggestions = true;
+
+            function adjustChatbotPosition() {
+                const navHeight = document.querySelector('.navbar').offsetHeight;
+                const cw = document.getElementById('chatbotWindow');
+                if (cw && window.innerWidth <= 576) {
+                    cw.style.bottom = '0';
+                    cw.style.height = `calc(100vh - ${navHeight + 55}px)`;
+                } else if (cw) {
+                    cw.style.bottom = '85px';
+                    cw.style.height = '520px';
+                }
+            }
+            window.addEventListener('load', adjustChatbotPosition);
+            window.addEventListener('resize', adjustChatbotPosition);
+        })();
+    </script>
+</body>
+</html>
